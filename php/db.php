@@ -1,5 +1,5 @@
 <?php
-
+/*
 class db
 {
 	public $db_handler;
@@ -30,7 +30,7 @@ class db
 		
 	}
 }
-
+*/
 
 
 
@@ -63,7 +63,7 @@ require('config.php');
 
 		$items = $db_connection->exec($query);
 
-		return header('Location: http://127.0.0.1/');
+		return header('Location: http://127.0.0.1/todo');
 	}
 	catch (Exception $e) {
 		print "Error: " . $e->getMessage();
@@ -82,7 +82,7 @@ require('config.php');
 
 		$items = $db_connection->exec($query);
 
-		return header('Location: http://127.0.0.1/');
+		return header('Location: http://127.0.0.1/todo');
 	}
 	catch (Exception $e) {
 		print "Error: " . $e->getMessage();
@@ -101,7 +101,7 @@ require('config.php');
 
 		$items = $db_connection->exec($query);
 
-		return header('Location: http://127.0.0.1/');
+		return header('Location: http://127.0.0.1/todo');
 	}
 	catch (Exception $e) {
 		print "Error: " . $e->getMessage();
@@ -120,7 +120,7 @@ require('config.php');
 
 		$items = $db_connection->exec($query);
 
-		return header('Location: http://127.0.0.1/');
+		return header('Location: http://127.0.0.1/todo');
 	}
 	catch (Exception $e) {
 		print "Error: " . $e->getMessage();
