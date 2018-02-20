@@ -9,6 +9,6 @@ You can:
 - Delete Task
 
 Todo:
-- Implement ORM concepts for DB
+- ~~Implement ORM concepts for DB~~
 - Implement classes for tasks
 - Custom CSS
