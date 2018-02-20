@@ -1,14 +1,12 @@
 <?php
-require_once('config.php');
 class db
 {
 	public $db_handler;
-	private $config;
 
 	function __construct(){
-		$config = new dbConfig;
+		require_once('config.php');
 		try {
-			$this->db_handler = new PDO("mysql:host=$config->host;dbname=$config->db", $config->user, $config->pass);
+			$this->db_handler = new PDO("mysql:host=$config[host];dbname=$config[db]", $config['user'], $config['pass']);
 			$this->db_handler->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 		}
 		catch (Exception $e) {
@@ -57,4 +55,6 @@ class db
 
 		return header('Location: http://127.0.0.1/todo');
 	}
+
+	function updateTask($id,$something){}
 }
