@@ -1,6 +1,7 @@
 Todo
 
 This is a simple todo app for practice using PHP OOP with a MySQL DB
+
 Temporarily styled with bootstrap4
 
 You can:
