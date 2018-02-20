@@ -18,37 +18,42 @@ class db
 	}
 
 	function getTasks() {
-		$items = $this->db_handler->prepare("SELECT * FROM `tasks`");
-		$items->execute();
-		$items = $items->fetchAll(PDO::FETCH_OBJ);
+		$statement = $this->db_handler->prepare("SELECT * FROM `tasks`");
+		$statement->execute();
+		$statement = $statement->fetchAll(PDO::FETCH_OBJ);
 
-		return $items;
+		return $statement;
 	}
 
 	function addTask($name, $description) {
-		$items = $this->db_handler->prepare("INSERT INTO `tasks` (`name`, `description`) VALUES ('$name', '$description')");
-		$items->execute();
+		$statement = $this->db_handler->prepare("INSERT INTO `tasks` (`name`, `description`) VALUES (:name, :description)");
+		$statement->bindParam(':name', $name);
+		$statement->bindParam(':description', $description);
+		$statement->execute();
 
 		return header('Location: http://127.0.0.1/todo');
 	}
 
 	function deleteTask($id) {
-		$items = $this->db_handler->prepare("DELETE FROM `tasks` WHERE `tasks`.`id` = $id");
-		$items->execute();
+		$statement = $this->db_handler->prepare("DELETE FROM `tasks` WHERE `tasks`.`id` = :id");
+		$statement->bindParam(':id', $id);
+		$statement->execute();
 
 		return header('Location: http://127.0.0.1/todo');
 	}
 
 	function completeTask($id) {
-		$items = $this->db_handler->prepare("UPDATE `tasks` SET `status`= 'complete' WHERE `id` = $id");
-		$items->execute();
+		$statement = $this->db_handler->prepare("UPDATE `tasks` SET `status`= 'complete' WHERE `id` = :id");
+		$statement->bindParam(':id', $id);
+		$statement->execute();
 
 		return header('Location: http://127.0.0.1/todo');
 	}
 
 	function incompleteTask($id) {
-		$items = $this->db_handler->prepare("UPDATE `tasks` SET `status`= 'incomplete' WHERE `id` = $id");
-		$items->execute();
+		$statement = $this->db_handler->prepare("UPDATE `tasks` SET `status`= 'incomplete' WHERE `id` = :id");
+		$statement->bindParam(':id', $id);
+		$statement->execute();
 
 		return header('Location: http://127.0.0.1/todo');
 	}
