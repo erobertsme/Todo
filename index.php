@@ -1,20 +1,25 @@
 <!DOCTYPE html>
 <?php
 include 'php/db.php';
-$todo = getTasks();
+$todo = new db;
+$todo = $todo->getTasks();
 if (isset($_POST["name"]) and isset($_POST["description"])) {
 	$name = $_POST["name"];
 	$description = $_POST["description"];
-	addTask($name,$description);
+	$newTask = new db;
+	$newTask->addTask($name,$description);
 }
 elseif (isset($_POST["complete"])) {
-	completeTask($_POST["complete"]);
+	$complete = new db;
+	$complete->completeTask($_POST["complete"]);
 }
 elseif (isset($_POST["incomplete"])) {
-	incompleteTask($_POST["incomplete"]);
+	$incomplete = new db;
+	$incomplete->incompleteTask($_POST["incomplete"]);
 }
 elseif (isset($_POST["delete"])) {
-	deleteTask($_POST["delete"]);
+	$delete = new db;
+	$delete->deleteTask($_POST["delete"]);
 };
 ?>
 <html>
