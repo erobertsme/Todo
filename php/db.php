@@ -2,13 +2,15 @@
 /*
 class db
 {
+	require_once('config.php');
 	public $db_handler;
+	private $config;
 
 	function __construct()
 	{
-		require_once('config.php');
+		$config = new dbConfig;
 		try {
-			$this->db_handler = new PDO("mysql:host=$host;dbname=$db", $username, $password);
+			$this->db_handler = new PDO("mysql:host=$config->host;dbname=$config->db", $config->user, $config->pass);
 			$this->db_handler->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 		}
 		catch (Exception $e) {
@@ -31,13 +33,12 @@ class db
 	}
 }
 */
-
-
+require_once ('config.php');
 
 function getTasks() {
-require_once('config.php');
 	try {
-		$db_connection = new PDO("mysql:host=$host;dbname=$db", $username, $password);
+		$config = new dbConfig;
+		$db_connection = new PDO("mysql:host=$config->host;dbname=$config->db", $config->user, $config->pass);
 		$db_connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
 		$items = $db_connection->prepare("SELECT * FROM `tasks`");
@@ -54,9 +55,9 @@ require_once('config.php');
 };
 
 function addTask($name, $description) {
-require('config.php');
 	try {
-		$db_connection = new PDO("mysql:host=$host;dbname=$db", $username, $password);
+		$config = new dbConfig;
+		$db_connection = new PDO("mysql:host=$config->host;dbname=$config->db", $config->user, $config->pass);
 		$db_connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
 		$query = "INSERT INTO `tasks` (`name`, `description`) VALUES ('$name', '$description')";
@@ -73,9 +74,9 @@ require('config.php');
 };
 
 function deleteTask($id) {
-require('config.php');
 	try {
-		$db_connection = new PDO("mysql:host=$host;dbname=$db", $username, $password);
+		$config = new dbConfig;
+		$db_connection = new PDO("mysql:host=$config->host;dbname=$config->db", $config->user, $config->pass);
 		$db_connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
 		$query = "DELETE FROM `tasks` WHERE `tasks`.`id` = $id";
@@ -92,9 +93,9 @@ require('config.php');
 };
 
 function completeTask($id) {
-require('config.php');
 	try {
-		$db_connection = new PDO("mysql:host=$host;dbname=$db", $username, $password);
+		$config = new dbConfig;
+		$db_connection = new PDO("mysql:host=$config->host;dbname=$config->db", $config->user, $config->pass);
 		$db_connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
 		$query = "UPDATE `tasks` SET `status`= 'complete' WHERE `id` = $id";
@@ -111,9 +112,9 @@ require('config.php');
 };
 
 function incompleteTask($id) {
-require('config.php');
 	try {
-		$db_connection = new PDO("mysql:host=$host;dbname=$db", $username, $password);
+		$config = new dbConfig;
+		$db_connection = new PDO("mysql:host=$config->host;dbname=$config->db", $config->user, $config->pass);
 		$db_connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
 		$query = "UPDATE `tasks` SET `status`= 'incomplete' WHERE `id` = $id";
