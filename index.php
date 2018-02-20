@@ -35,17 +35,24 @@ elseif (isset($_POST["delete"])) {
 		<div class="row">
 			<?php foreach ($todo as $task): ?>
 				<div class="col-4">
-					<div class="card text-center my-2 <?php if ($task->status == 'complete'){echo('border-success');}?>">
-						<div class="card-header <?php if ($task->status == 'complete'){echo('bg-success');}?>"><h3 class="card-title"><?= $task->name ?></h3></div>
+					<div class="card text-center my-3 <?php if ($task->status == 'complete'){echo('border-success');}?>">
 
-						<div class="card-body"><p class="card-text h4"><?= $task->description ?></p>
-						<?php if ($task->status == 'complete'){
-						echo('<form action="' . $_SERVER['PHP_SELF'] . '" method="POST" class="d-inline"><button class="btn btn-lg btn-outline-secondary mt-3" type="submit" value="' . $task->id . '" name="incomplete">Mark Incomplete</button></form>');}
-						elseif ($task->status == 'incomplete'){
-						echo('<form action="' . $_SERVER['PHP_SELF'] . '" method="POST" class="d-inline"><button class="btn btn-lg btn-outline-success mt-3" type="submit" value="' . $task->id . '" name="complete">Mark Complete</button></form>');}
-						?>
-						<br><form action="<?php $_PHP_SELF ?>" method="POST" class="d-inline"><button class="btn btn-sm btn-outline-danger mt-3" type="submit" value="<?= $task->id ?>" name="delete" onclick="return confirm('Are you sure you want to delete this task?');">Delete</button></form>
-					</div></div>
+						<div class="card-header <?php if ($task->status == 'complete'){echo('bg-success');}?>"><h4 class="card-title"><?= ucwords($task->name) ?></h4></div>
+
+						<div class="card-body" style="min-height: 150px;">
+							<p class="card-text h5"><?= $task->description ?></p>
+						</div>
+
+						<div class="card-footer bg-transparent p-2">
+							<?php if ($task->status == 'complete'){
+							echo('<form action="' . $_SERVER['PHP_SELF'] . '" method="POST" class="d-inline"><button class="btn btn-outline-secondary" type="submit" value="' . $task->id . '" name="incomplete">Mark Incomplete</button></form>');}
+							elseif ($task->status == 'incomplete'){
+							echo('<form action="' . $_SERVER['PHP_SELF'] . '" method="POST" class="d-inline"><button class="btn btn-outline-success" type="submit" value="' . $task->id . '" name="complete">Mark Complete</button></form>');}
+							?>
+							<form action="<?php $_PHP_SELF ?>" method="POST" class="d-inline"><button class="btn btn-sm btn-outline-danger ml-3" type="submit" value="<?= $task->id ?>" name="delete" onclick="return confirm('Are you sure you want to delete this task?');">Delete</button></form>
+						</div>
+
+					</div>
 				</div>
 			<?php endforeach ?>
 		
