@@ -1,9 +1,8 @@
 <?php 
 require 'php/todo.php';
-if(isset($_POST["update"])){$id = $_POST["update"];} else{die(header('Location: http://127.0.0.1/todo'));};
-$task = new db;
+if(isset($_POST["edit"])){$task = new db;} else{die(header('Location: http://127.0.0.1/todo'));};
+$id = $_POST["edit"];
 $task = $task->getTask($id);
-print("ID: " . $id);
 ?>
 <html>
 	<head>
@@ -18,12 +17,10 @@ print("ID: " . $id);
 			<form action="php/todo.php" method="POST">
 				<div class="form-group">
 					Task:
-					<input type="text" name="name" class="form-control" value="<?= $task['0']->name ?>">
-					Description:
 					<textarea name="description" class="form-control" rows="3"><?= $task['0']->description ?></textarea>
 					<input type="hidden" name="id" value="<?= $id ?>">
-					<input type="hidden" name="updated">
-					<button type="submit" class="btn btn-lg btn-primary form-control">Update</button>
+					<input type="hidden" name="updateTask">
+					<button type="submit" class="btn btn-lg btn-primary mt-2 form-control">Update</button>
 				</div>
 			</form>
 			</div>

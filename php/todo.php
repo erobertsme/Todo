@@ -1,23 +1,9 @@
 <?php
-/*
 
-Note: This is a Work In Progress at the moment
-
-Tasks
-	-Name
-	-Description
-	-Status (default: incomplete)
-	-Created_at
-
-todo:
-updated_at
-
-*/
-
-if (isset($_POST["new"])) {
-	$name = $_POST["name"];
+// Receives data from POST and executes methods accordingly
+if (isset($_POST["newTask"])) {
 	$description = $_POST["description"];
-	$addTask = new Task($name, $description);
+	$addTask = new Task($description);
 }
 elseif (isset($_POST["complete"])) {
 	$complete = new db;
@@ -31,35 +17,35 @@ elseif (isset($_POST["delete"])) {
 	$delete = new db;
 	$delete->deleteTask($_POST["delete"]);
 }
-elseif (isset($_POST["updated"])) {
+elseif (isset($_POST["updateTask"])) {
 	$id = $_POST["id"];
-	$name = $_POST["name"];
 	$description = $_POST["description"];
 	$update = new db;
-	$update->updateTask($id, $name, $description);
+	$update->updateTask($id,$description);
 };
 
+
+// This class seems kind of unecessary
 class Task
 {
 	
-	protected $name;
 	protected $description;
 	protected $status;
 	protected $created_at;
 	protected $updated_at;
 
-	function __construct($name, $description)
+	function __construct($description)
 	{
-		$this->name = "$name";
 		$this->description = "$description";
 		$this->status = incomplete;
 		$this->created_at = date('Y-m-d H:i:s');
 
 		$newTask = new db;
-		$newTask->addTask($name, $description);
+		$newTask->addTask($description);
 	}
 
 }
+
 
 class db
 {
@@ -90,7 +76,7 @@ class db
 	}
 
 	function getTask($id) {
-		$statement = $this->db_handler->prepare("SELECT name, description FROM `tasks` WHERE `id`= :id");
+		$statement = $this->db_handler->prepare("SELECT description FROM `tasks` WHERE `id`= :id");
 		$statement->bindParam(':id', $id);
 		$statement->execute();
 		$statement = $statement->fetchAll(PDO::FETCH_OBJ);
@@ -98,9 +84,8 @@ class db
 		return $statement;
 	}
 
-	function addTask($name, $description) {
-		$statement = $this->db_handler->prepare("INSERT INTO `tasks` (`name`, `description`) VALUES (:name, :description)");
-		$statement->bindParam(':name', $name);
+	function addTask($description) {
+		$statement = $this->db_handler->prepare("INSERT INTO `tasks` (`description`) VALUES (:description)");
 		$statement->bindParam(':description', $description);
 		$statement->execute();
 
@@ -131,10 +116,9 @@ class db
 		return header('Location: http://127.0.0.1/todo');
 	}
 
-	function updateTask($id, $name, $description){
-		$statement = $this->db_handler->prepare("UPDATE `tasks` SET `name`=:name, `description`=:description WHERE `id`= :id");
+	function updateTask($id, $description){
+		$statement = $this->db_handler->prepare("UPDATE `tasks` SET `description`=:description WHERE `id`= :id");
 		$statement->bindParam(':id', $id);
-		$statement->bindParam(':name', $name);
 		$statement->bindParam(':description', $description);
 		$statement->execute();
 
