@@ -77,11 +77,14 @@ class db
 		};
 	}
 
+	function __destruct(){
+		$this->db_handler = null;
+	}
+
 	function getTasks() {
 		$statement = $this->db_handler->prepare("SELECT * FROM `tasks`");
 		$statement->execute();
 		$statement = $statement->fetchAll(PDO::FETCH_OBJ);
-		$this->db_handler = null;
 
 		return $statement;
 	}
@@ -91,7 +94,6 @@ class db
 		$statement->bindParam(':id', $id);
 		$statement->execute();
 		$statement = $statement->fetchAll(PDO::FETCH_OBJ);
-		$this->db_handler = null;
 
 		return $statement;
 	}
@@ -101,7 +103,6 @@ class db
 		$statement->bindParam(':name', $name);
 		$statement->bindParam(':description', $description);
 		$statement->execute();
-		$this->db_handler = null;
 
 		return header('Location: http://127.0.0.1/todo');
 	}
@@ -110,7 +111,6 @@ class db
 		$statement = $this->db_handler->prepare("DELETE FROM `tasks` WHERE `tasks`.`id`= :id");
 		$statement->bindParam(':id', $id);
 		$statement->execute();
-		$this->db_handler = null;
 
 		return header('Location: http://127.0.0.1/todo');
 	}
@@ -119,7 +119,6 @@ class db
 		$statement = $this->db_handler->prepare("UPDATE `tasks` SET `status`='complete' WHERE `id`= :id");
 		$statement->bindParam(':id', $id);
 		$statement->execute();
-		$this->db_handler = null;
 
 		return header('Location: http://127.0.0.1/todo');
 	}
@@ -128,7 +127,6 @@ class db
 		$statement = $this->db_handler->prepare("UPDATE `tasks` SET `status`='incomplete' WHERE `id`= :id");
 		$statement->bindParam(':id', $id);
 		$statement->execute();
-		$this->db_handler = null;
 
 		return header('Location: http://127.0.0.1/todo');
 	}
@@ -139,7 +137,6 @@ class db
 		$statement->bindParam(':name', $name);
 		$statement->bindParam(':description', $description);
 		$statement->execute();
-		$this->db_handler = null;
 
 		return header('Location: http://127.0.0.1/todo');
 	}
