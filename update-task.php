@@ -3,6 +3,7 @@ require 'php/todo.php';
 if(isset($_POST["edit"])){$task = new db;} else{die(header('Location: http://127.0.0.1/todo'));};
 $id = $_POST["edit"];
 $task = $task->getTask($id);
+echo($_SERVER['SERVER_NAME']);
 ?>
 <html>
 	<head>

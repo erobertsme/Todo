@@ -89,7 +89,7 @@ class db
 		$statement->bindParam(':description', $description);
 		$statement->execute();
 
-		return header('Location: http://127.0.0.1/todo');
+		return header('Location: http://' . $_SERVER['SERVER_NAME'] . '/todo');
 	}
 
 	function deleteTask($id) {
@@ -97,7 +97,7 @@ class db
 		$statement->bindParam(':id', $id);
 		$statement->execute();
 
-		return header('Location: http://127.0.0.1/todo');
+		return header('Location: http://' . $_SERVER['SERVER_NAME'] . '/todo');
 	}
 
 	function completeTask($id) {
@@ -105,7 +105,7 @@ class db
 		$statement->bindParam(':id', $id);
 		$statement->execute();
 
-		return header('Location: http://127.0.0.1/todo');
+		return header('Location: http://' . $_SERVER['SERVER_NAME'] . '/todo');
 	}
 
 	function incompleteTask($id) {
@@ -122,7 +122,7 @@ class db
 		$statement->bindParam(':description', $description);
 		$statement->execute();
 
-		return header('Location: http://127.0.0.1/todo');
+		return header('Location: http://' . $_SERVER['SERVER_NAME'] . '/todo');
 	}
 
 }

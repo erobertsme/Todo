@@ -17,4 +17,6 @@ Todo:
 - Implement created_at and updated_at
 - Implement deadline (due datetame)
 - ~~UI Overhaul~~
+- Sort dropdown
+- Edit on same page
 - Custom CSS
