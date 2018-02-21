@@ -32,15 +32,15 @@
 									<form action="update-task.php" method="POST" class="d-inline"><button class="btn btn-outline-primary" type="submit" value="<?= $task->id ?>" name="edit"><i class="far fa-edit"></i></button></form>
 
 									<?php if ($task->status == 'complete'){
-									echo('<form action="php/todo.php" method="POST" class="d-inline"><button class="btn btn-outline-secondary" type="submit" value="' . $task->id . '" name="incomplete"><i class="far fa-check-square"></i></button></form>');}
+									echo('<form action="php/todo.php" method="POST" class="d-inline mr-2"><button class="btn btn-outline-secondary" type="submit" value="' . $task->id . '" name="incomplete"><i class="far fa-check-square"></i></button></form>');}
 									elseif ($task->status == 'incomplete'){
-									echo('<form action="php/todo.php" method="POST" class="d-inline"><button class="btn btn-outline-success" type="submit" value="' . $task->id . '" name="complete"><i class="far fa-square"></i></button></form>');}
+									echo('<form action="php/todo.php" method="POST" class="d-inline mr-2"><button class="btn btn-outline-success" type="submit" value="' . $task->id . '" name="complete"><i class="far fa-square"></i></button></form>');}
 									?>
 
 									<?php if ($task->status == 'complete'){echo("<strike>$task->description</strike>");}elseif ($task->status == 'incomplete'){echo("$task->description");}?>
 								</div>
 								<div class="col-1">
-									<form action="php/todo.php" method="POST" class="d-inline"><button class="btn btn-sm btn-outline-danger" type="submit" value="<?= $task->id ?>" name="delete" onclick="return confirm('Are you sure you want to delete this task?');"><i class="far fa-times-circle"></i></button></form>
+									<form action="php/todo.php" method="POST" class="d-inline"><button class="btn btn-sm btn-outline-danger mt-1" type="submit" value="<?= $task->id ?>" name="delete" onclick="return confirm('Are you sure you want to delete this task?');"><i class="far fa-times-circle"></i></button></form>
 								</div>
 							</div>
 						</li>

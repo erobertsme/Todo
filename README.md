@@ -7,7 +7,7 @@ Temporarily styled with bootstrap4 and fontawesome
 You can:
 - Add a new task
 - Set a task to Incomplete or Complete
-- Update Task name or description
+- Update Task
 - Delete Task
 
 Todo:
