@@ -11,5 +11,6 @@ You can:
 
 Todo:
 - ~~Implement ORM concepts for DB~~
-- Implement classes for tasks
+- ~~Implement classes for tasks~~
+- Allow updating task names and descriptions
 - Custom CSS

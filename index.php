@@ -1,27 +1,5 @@
 <!DOCTYPE html>
-<?php
-include 'php/db.php';
-$todo = new db;
-$todo = $todo->getTasks();
-if (isset($_POST["name"]) and isset($_POST["description"])) {
-	$name = $_POST["name"];
-	$description = $_POST["description"];
-	$newTask = new db;
-	$newTask->addTask($name,$description);
-}
-elseif (isset($_POST["complete"])) {
-	$complete = new db;
-	$complete->completeTask($_POST["complete"]);
-}
-elseif (isset($_POST["incomplete"])) {
-	$incomplete = new db;
-	$incomplete->incompleteTask($_POST["incomplete"]);
-}
-elseif (isset($_POST["delete"])) {
-	$delete = new db;
-	$delete->deleteTask($_POST["delete"]);
-};
-?>
+<?php require_once 'php/db.php'; $todo = new db; $todo = $todo->getTasks(); ?>
 <html>
 	<head>
 		<meta charset="UTF-8">
@@ -34,8 +12,8 @@ elseif (isset($_POST["delete"])) {
 	<div class="container">
 		<div class="row">
 			<?php foreach ($todo as $task): ?>
-				<div class="col-4">
-					<div class="card text-center my-3 <?php if ($task->status == 'complete'){echo('border-success');}?>">
+				<div class="col-4 p-1">
+					<div class="card text-center <?php if ($task->status == 'complete'){echo('border-success');}?>">
 
 						<div class="card-header <?php if ($task->status == 'complete'){echo('bg-success');}?>"><h4 class="card-title"><?= ucwords($task->name) ?></h4></div>
 
@@ -45,11 +23,11 @@ elseif (isset($_POST["delete"])) {
 
 						<div class="card-footer bg-transparent p-2">
 							<?php if ($task->status == 'complete'){
-							echo('<form action="' . $_SERVER['PHP_SELF'] . '" method="POST" class="d-inline"><button class="btn btn-outline-secondary" type="submit" value="' . $task->id . '" name="incomplete">Mark Incomplete</button></form>');}
+							echo('<form action="php/todo.php" method="POST" class="d-inline"><button class="btn btn-outline-secondary" type="submit" value="' . $task->id . '" name="incomplete">Mark Incomplete</button></form>');}
 							elseif ($task->status == 'incomplete'){
-							echo('<form action="' . $_SERVER['PHP_SELF'] . '" method="POST" class="d-inline"><button class="btn btn-outline-success" type="submit" value="' . $task->id . '" name="complete">Mark Complete</button></form>');}
+							echo('<form action="php/todo.php" method="POST" class="d-inline"><button class="btn btn-outline-success" type="submit" value="' . $task->id . '" name="complete">Mark Complete</button></form>');}
 							?>
-							<form action="<?php $_PHP_SELF ?>" method="POST" class="d-inline"><button class="btn btn-sm btn-outline-danger ml-3" type="submit" value="<?= $task->id ?>" name="delete" onclick="return confirm('Are you sure you want to delete this task?');">Delete</button></form>
+							<form action="php/todo.php" method="POST" class="d-inline"><button class="btn btn-sm btn-outline-danger ml-3" type="submit" value="<?= $task->id ?>" name="delete" onclick="return confirm('Are you sure you want to delete this task?');">Delete</button></form>
 						</div>
 
 					</div>
@@ -59,7 +37,7 @@ elseif (isset($_POST["delete"])) {
 		</div>
 		<div class="row justify-content-center">
 			<div class="col-6">
-			<form action="<?php $_PHP_SELF ?>" method="POST">
+			<form action="php/todo.php" method="POST">
 				<div class="form-group">
 					Task:
 					<input type="text" name="name" class="form-control">
