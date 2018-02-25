@@ -14,9 +14,11 @@ Todo:
 - ~~Implement ORM concepts for DB~~
 - ~~Implement classes for tasks~~
 - ~~Allow updating task names and descriptions~~
+- ~~UI Overhaul~~
 - Implement created_at and updated_at
 - Implement deadline (due datetame)
-- ~~UI Overhaul~~
-- Sort dropdown
-- Edit on same page
+ - Daily view
+ - Weekly view
+- Sorting
+- AJAX updating
 - Custom CSS

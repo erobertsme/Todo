@@ -1,9 +1,8 @@
 <?php 
 require 'php/todo.php';
-if(isset($_POST["edit"])){$task = new db;} else{die(header('Location: http://127.0.0.1/todo'));};
+if(isset($_POST["edit"])){$task = new db;} else{die(header('Location: http://' . $_SERVER['SERVER_NAME'] . '/todo'));};
 $id = $_POST["edit"];
 $task = $task->getTask($id);
-echo($_SERVER['SERVER_NAME']);
 ?>
 <html>
 	<head>
@@ -17,7 +16,6 @@ echo($_SERVER['SERVER_NAME']);
 			<div class="col-6">
 			<form action="php/todo.php" method="POST">
 				<div class="form-group">
-					Task:
 					<textarea name="description" class="form-control" rows="3"><?= $task['0']->description ?></textarea>
 					<input type="hidden" name="id" value="<?= $id ?>">
 					<input type="hidden" name="updateTask">

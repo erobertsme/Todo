@@ -25,10 +25,10 @@ elseif (isset($_POST["updateTask"])) {
 };
 
 
-// This class seems kind of unecessary
+// This class seems kind of unnecessary
 class Task
 {
-	
+
 	protected $description;
 	protected $status;
 	protected $created_at;
@@ -113,7 +113,7 @@ class db
 		$statement->bindParam(':id', $id);
 		$statement->execute();
 
-		return header('Location: http://127.0.0.1/todo');
+		return header('Location: http://' . $_SERVER['SERVER_NAME'] . '/todo');
 	}
 
 	function updateTask($id, $description){
