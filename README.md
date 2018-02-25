@@ -15,10 +15,10 @@ Todo:
 - ~~Implement classes for tasks~~
 - ~~Allow updating task names and descriptions~~
 - ~~UI Overhaul~~
+- ~~Update task on same page ~~
 - Implement created_at and updated_at
 - Implement deadline (due datetame)
  - Daily view
  - Weekly view
 - Sorting
-- AJAX updating
 - Custom CSS
