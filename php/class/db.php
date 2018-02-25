@@ -6,7 +6,7 @@ class db
 	public $db_handler;
 
 	function __construct(){
-		require('config.php');
+		require('php/config.php');
 		try {
 			$this->db_handler = new PDO("mysql:host=$config[host];dbname=$config[db]", $config['user'], $config['pass']);
 			$this->db_handler->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
