@@ -54,17 +54,10 @@ class db
 		return header('Location: http://' . $_SERVER['SERVER_NAME'] . '/todo');
 	}
 
-	function completeTask($id) {
-		$statement = $this->db_handler->prepare("UPDATE `tasks` SET `status`='complete' WHERE `id`= :id");
+	function taskStatus($id, $status) {
+		$statement = $this->db_handler->prepare("UPDATE `tasks` SET `status`=:status WHERE `id`= :id");
 		$statement->bindParam(':id', $id);
-		$statement->execute();
-
-		return header('Location: http://' . $_SERVER['SERVER_NAME'] . '/todo');
-	}
-
-	function incompleteTask($id) {
-		$statement = $this->db_handler->prepare("UPDATE `tasks` SET `status`='incomplete' WHERE `id`= :id");
-		$statement->bindParam(':id', $id);
+		$statement->bindParam(':status', $status);
 		$statement->execute();
 
 		return header('Location: http://' . $_SERVER['SERVER_NAME'] . '/todo');

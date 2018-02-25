@@ -12,6 +12,7 @@ if(isset($_GET["edit"])){$editTask = new db;$id = $_GET["edit"];$editTask = $edi
 	<body>
 
 	<div class="container">
+
 		<div class="row">
 			<div class="col mb-5 pb-5">
 				<ul class="list-group list-group-flush">
@@ -20,15 +21,25 @@ if(isset($_GET["edit"])){$editTask = new db;$id = $_GET["edit"];$editTask = $edi
 					<li class="list-group-item<?php if ($task->status == 'complete'){echo(' disabled');}?>">
 						<div class="row">
 
+							<!-- Edit Button -->
 							<div class="col-1 my-auto p-0">
-								<form action="/todo" method="GET" class="d-inline"><button class="btn btn-outline-primary m-0" type="submit" value="<?= $task->id ?>" name="edit"><i class="far fa-edit p-1"></i></button></form>
+								<form action="/todo" method="GET" class="d-inline">
+									<button class="btn btn-outline-primary m-0" type="submit" value="<?= $task->id ?>" name="edit"><i class="far fa-edit p-1"></i></button>
+								</form>
 							</div>
 
+							<!-- Status Button -->
 							<div class="col-1 my-auto p-0">
 								<?php if ($task->status == 'complete'): ?>
-									<form action="php/todo.php" method="POST" class="d-inline"><button class="btn btn-outline-secondary" type="submit" value="<?= $task->id ?>" name="incomplete"><i class="far fa-check-square p-1"></i></button></form>
+									<form action="php/todo.php" method="POST" class="d-inline">
+										<input type="hidden" value="<?= $task->id ?>" name="id"/>
+										<button class="btn btn-outline-secondary" type="submit" value="incomplete" name="status"><i class="far fa-check-square p-1"></i></button>
+									</form>
 								<?php elseif ($task->status == 'incomplete'): ?>
-									<form action="php/todo.php" method="POST" class="d-inline"><button class="btn btn-outline-success" type="submit" value="<?= $task->id ?>" name="complete"><i class="far fa-square p-1"></i></button></form>
+									<form action="php/todo.php" method="POST" class="d-inline">
+										<input type="hidden" value="<?= $task->id ?>" name="id"/>
+										<button class="btn btn-outline-success" type="submit" value="complete" name="status"><i class="far fa-square p-1"></i></button>
+									</form>
 								<?php endif; ?>
 							</div>
 
@@ -42,6 +53,8 @@ if(isset($_GET["edit"])){$editTask = new db;$id = $_GET["edit"];$editTask = $edi
 								</h3>
 							</div>
 
+
+							<!-- Delete Button -->
 							<div class="col-1 ml-2 my-auto">
 								<form action="php/todo.php" method="POST" class="d-inline">
 									<button class="btn btn-sm btn-outline-danger mt-1" type="submit" value="<?= $task->id ?>" name="delete" onclick="return confirm('Are you sure you want to delete this task?');"><i class="far fa-times-circle py-1"></i></button>
@@ -59,7 +72,7 @@ if(isset($_GET["edit"])){$editTask = new db;$id = $_GET["edit"];$editTask = $edi
 		<div class="row fixed-bottom justify-content-center">
 			<div class="col mx-5">
 
-
+			<!-- New Task -->
 			<?php if(isset($_GET["edit"])): ?>
 				<form action="php/todo.php" method="POST">
 					<input type="hidden" name="updateTask"/>
@@ -71,6 +84,8 @@ if(isset($_GET["edit"])){$editTask = new db;$id = $_GET["edit"];$editTask = $edi
 						</div>
 					</div>
 				</form>
+
+			<!-- Update Task -->
 			<?php else: ?>
 			<form action="php/todo.php" method="POST">
 				<input type="hidden" name="newTask"/>
