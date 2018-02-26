@@ -16,7 +16,7 @@ Todo:
 - ~~Allow updating task names and descriptions~~
 - ~~UI Overhaul~~
 - ~~Update task on same page~~
-- Implement created_at and updated_at
+- Implement createdTime and updatedTime
 - Implement deadline (due datetame)
 - Sorting
    - Daily view

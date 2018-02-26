@@ -1,7 +1,4 @@
-<?php
-require 'php/todo.php'; $todo = new db; $todo = $todo->getTasks('all');
-if(isset($_GET["edit"])){$editTask = new db;$id = $_GET["edit"];$editTask = $editTask->getTask($id);};
-?>
+<?php require 'php/todo.php' ?>
 <html>
 	<head>
 		<meta charset="UTF-8">
@@ -13,6 +10,7 @@ if(isset($_GET["edit"])){$editTask = new db;$id = $_GET["edit"];$editTask = $edi
 
 	<div class="container">
 
+		<!-- Tasks List -->
 		<div class="row">
 			<div class="col mb-5 pb-5">
 				<ul class="list-group list-group-flush">
@@ -32,24 +30,25 @@ if(isset($_GET["edit"])){$editTask = new db;$id = $_GET["edit"];$editTask = $edi
 							<div class="col-1 my-auto p-0">
 								<?php if ($task->status == 'complete'): ?>
 									<form action="php/todo.php" method="POST" class="d-inline">
-										<input type="hidden" value="<?= $task->id ?>" name="id"/>
+										<input type="hidden" value="<?= $task->id ?>" name="id">
 										<button class="btn btn-outline-secondary" type="submit" value="incomplete" name="status"><i class="far fa-check-square p-1"></i></button>
 									</form>
 								<?php elseif ($task->status == 'incomplete'): ?>
 									<form action="php/todo.php" method="POST" class="d-inline">
-										<input type="hidden" value="<?= $task->id ?>" name="id"/>
+										<input type="hidden" value="<?= $task->id ?>" name="id">
 										<button class="btn btn-outline-success" type="submit" value="complete" name="status"><i class="far fa-square p-1"></i></button>
 									</form>
-								<?php endif; ?>
+								<?php endif ?>
 							</div>
 
+							<!-- Task Description -->
 							<div class="col">
 								<h3>
 									<?php if ($task->status == 'complete'): ?>
 										<strike><?= $task->description ?></strike>
 									<?php elseif ($task->status == 'incomplete'): ?>
 										<?= $task->description ?>
-									<?php endif; ?>
+									<?php endif ?>
 								</h3>
 							</div>
 
@@ -75,28 +74,28 @@ if(isset($_GET["edit"])){$editTask = new db;$id = $_GET["edit"];$editTask = $edi
 			<!-- New Task -->
 			<?php if(isset($_GET["edit"])): ?>
 				<form action="php/todo.php" method="POST">
-					<input type="hidden" name="updateTask"/>
-					<input type="hidden" name="id" value="<?= $id ?>"/>
+					<input type="hidden" name="updateTask">
+					<input type="hidden" name="id" value="<?= $id ?>">
 					<div class="input-group input-group-lg">
-						<input type="text" name="description" class="form-control" value="<?= $editTask['0']->description ?>" onfocus="var temp_value=this.value; this.value=''; this.value=temp_value" autocomplete="off" autofocus/>
+						<input type="text" name="description" class="form-control" value="<?= $editTask['0']->description ?>" onfocus="var temp_value=this.value; this.value=''; this.value=temp_value" autocomplete="off" autofocus>
 						<div class="input-group-append">
 							<button type="submit" class="btn btn-primary form-control">Update</button>
 						</div>
 					</div>
 				</form>
 
-			<!-- Update Task -->
+			<!-- Edit Task -->
 			<?php else: ?>
-			<form action="php/todo.php" method="POST">
-				<input type="hidden" name="newTask"/>
-				<div class="input-group input-group-lg">
-					<input type="text" name="description" class="form-control" placeholder="Task" autocomplete="off" autofocus/>
-					<div class="input-group-append">
-						<button type="submit" class="btn btn-primary form-control">Add</button>
+				<form action="php/todo.php" method="POST">
+					<input type="hidden" name="newTask">
+					<div class="input-group input-group-lg">
+						<input type="text" name="description" class="form-control" placeholder="Task" autocomplete="off" autofocus>
+						<div class="input-group-append">
+							<button type="submit" class="btn btn-primary form-control">Add</button>
+						</div>
 					</div>
-				</div>
-			</form>
-		<?php endif; ?>
+				</form>
+			<?php endif ?>
 
 			</div>
 		</div>
