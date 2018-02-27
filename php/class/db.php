@@ -1,16 +1,16 @@
 <?php
-require 'tasks.php';
+require 'task.php';
 
 class db
 {
-	public $dbHandler;
+	public $dbConnect;
 
 	// Creates new connection to the database using information from config.php
 	function __construct(){
 		require($_SERVER['DOCUMENT_ROOT'] . '/todo/php/config.php');
 		try {
-			$this->dbHandler = new PDO("mysql:host=$config[host];dbname=$config[db]", $config['user'], $config['pass']);
-			$this->dbHandler->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+			$this->dbConnect = new PDO("mysql:host=$config[host];dbname=$config[db]", $config['user'], $config['pass']);
+			$this->dbConnect->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 		}
 		catch (Exception $e) {
 			print "Error: " . $e->getMessage();
@@ -18,13 +18,14 @@ class db
 		};
 	}
 
+	//Close connection when not in use
 	function __destruct(){
-		$this->dbHandler = null;
+		$this->dbConnect = null;
 	}
 
 	// Get all tasks for tasks list
 	function getTasks() {
-		$statement = $this->dbHandler->prepare("SELECT * FROM `tasks`");
+		$statement = $this->dbConnect->prepare("SELECT * FROM `tasks`");
 		$statement->execute();
 		$statement = $statement->fetchAll(PDO::FETCH_OBJ);
 
@@ -33,7 +34,7 @@ class db
 
 	// Get single task for editing
 	function getTask($id) {
-		$statement = $this->dbHandler->prepare("SELECT description FROM `tasks` WHERE `id`= :id");
+		$statement = $this->dbConnect->prepare("SELECT description FROM `tasks` WHERE `id`= :id");
 		$statement->bindParam(':id', $id);
 		$statement->execute();
 		$statement = $statement->fetchAll(PDO::FETCH_OBJ);
@@ -43,7 +44,7 @@ class db
 
 	// Add new task
 	function addTask($description) {
-		$statement = $this->dbHandler->prepare("INSERT INTO `tasks` (`description`) VALUES (:description)");
+		$statement = $this->dbConnect->prepare("INSERT INTO `tasks` (`description`) VALUES (:description)");
 		$statement->bindParam(':description', $description);
 		$statement->execute();
 
@@ -52,7 +53,7 @@ class db
 
 	// Delete task
 	function deleteTask($id) {
-		$statement = $this->dbHandler->prepare("DELETE FROM `tasks` WHERE `tasks`.`id`= :id");
+		$statement = $this->dbConnect->prepare("DELETE FROM `tasks` WHERE `tasks`.`id`= :id");
 		$statement->bindParam(':id', $id);
 		$statement->execute();
 
@@ -61,7 +62,7 @@ class db
 
 	// Update task status
 	function taskStatus($id, $status) {
-		$statement = $this->dbHandler->prepare("UPDATE `tasks` SET `status`=:status WHERE `id`= :id");
+		$statement = $this->dbConnect->prepare("UPDATE `tasks` SET `status`=:status WHERE `id`= :id");
 		$statement->bindParam(':id', $id);
 		$statement->bindParam(':status', $status);
 		$statement->execute();
@@ -71,7 +72,7 @@ class db
 
 	// Edit task
 	function updateTask($id, $description){
-		$statement = $this->dbHandler->prepare("UPDATE `tasks` SET `description`=:description WHERE `id`= :id");
+		$statement = $this->dbConnect->prepare("UPDATE `tasks` SET `description`=:description WHERE `id`= :id");
 		$statement->bindParam(':id', $id);
 		$statement->bindParam(':description', $description);
 		$statement->execute();
